@@ -1,0 +1,18 @@
+<nav class="col-md-3 col-lg-2 d-md-block bg-dark text-white sidebar min-vh-100">
+  <div class="position-sticky">
+    <h3 class="p-3">
+      <a href="{% url "todo_app:home-page" %}" class="nav-link text-white">To Do List</a>
+    </h3>
+    <ul class="nav flex-column">
+
+      <li class="nav-item">
+        <a class="nav-link text-white {% if request.resolver_match.url_name == "home-page" %} fw-bold {% endif %}" href="{% url "todo_app:home-page" %}">Tasks</a>
+      </li>
+
+      <li>
+        Tags
+      </li>
+
+    </ul>
+  </div>
+</nav>
