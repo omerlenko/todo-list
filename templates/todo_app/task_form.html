@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container mt-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          {% if task %} Edit Task {% else %} Create New Task {% endif %}
+        </h4>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+            <div class="mb-3">
+              {{ form.as_p }}
+            </div>
+            <div class="d-flex justify-content-between">
+              <a href="{% url "todo_app:home-page"%}" class="btn btn-secondary">Cancel</a>
+              <button type="submit" class="btn btn-success">
+                {% if task %} Update Task {% else %} Create Task {% endif %}
+              </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
