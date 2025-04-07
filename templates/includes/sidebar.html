@@ -9,8 +9,8 @@
         <a class="nav-link text-white {% if request.resolver_match.url_name == "home-page" %} fw-bold {% endif %}" href="{% url "todo_app:home-page" %}">Tasks</a>
       </li>
 
-      <li>
-        Tags
+      <li class="nav-item">
+        <a class="nav-link text-white {% if request.resolver_match.url_name == "tag-list" %} fw-bold {% endif %}" href="{% url "todo_app:tag-list" %}">Tags</a>
       </li>
 
     </ul>
