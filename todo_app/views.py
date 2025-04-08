@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from todo_app.models import Task, Tag
 
@@ -9,6 +10,17 @@ class TaskListView(ListView):
     model = Task
     context_object_name = "tasks"
     template_name = "todo_app/homepage.html"
+
+    def post(self, request, *args, **kwargs):
+        task_id = request.POST.get("task_id")
+        if task_id:
+            task = get_object_or_404(Task, id=task_id)
+            if task.is_completed:
+                task.is_completed = False
+            else:
+                task.is_completed = True
+            task.save()
+        return redirect("todo_app:home-page")
 
     def get_queryset(self):
         tasks = Task.objects.all().order_by("is_completed", "-datetime")
@@ -53,14 +65,3 @@ class TagUpdateView(UpdateView):
 class TagDeleteView(DeleteView):
     model = Tag
     success_url = reverse_lazy("todo_app:tag-list")
-
-
-def complete_task(request, pk):
-    task = get_object_or_404(Task, id=pk)
-    if task.is_completed:
-        task.is_completed = False
-    else:
-        task.is_completed = True
-    task.save()
-
-    return redirect("todo_app:home-page")

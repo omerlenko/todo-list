@@ -38,8 +38,9 @@
           <a href="{% url "todo_app:task-update" pk=task.id %}" class="btn btn-primary btn-sm fs-5">Update</a>
           <a href="{% url "todo_app:task-delete" pk=task.id %}" class="btn btn-danger btn-sm me-auto fs-5">Delete</a>
 
-          <form method="post" action="{% url "todo_app:task-complete" pk=task.id %}" class="">
+          <form method="post" action="{% url "todo_app:home-page" %}" class="">
             {% csrf_token %}
+            <input type="hidden" name="task_id" value="{{ task.id }}">
             {% if task.is_completed %}
               <button type="submit" class="btn btn-outline-success fs-5 btn-sm">Undo</button>
             {% else %}
